@@ -1,15 +1,20 @@
 import React from "react";
 import "./SubjectItem.css";
 
-function SubjectItem({id, isDone, content, createdDate, onUpdate, onDelete}) {
-    function onChangeCheckbox() {
+function SubjectItem({id, isDone, content, createdDate, onUpdate, onDelete, onSelectSubject}) {
+    function onChangeCheckbox(e) {
+        e.stopPropagation();
         onUpdate(id);
     };
-    function onClickDelete() {
+    function onClickDelete(e) {
+        e.stopPropagation();
         onDelete(id);
     };
+    function onClickItem() {
+        onSelectSubject(id);
+    }
     return (
-        <div className="SubjectItem">
+        <div className="SubjectItem" onClick={onClickItem}>
             <input 
                 className="checkbox" 
                 checked={isDone} 

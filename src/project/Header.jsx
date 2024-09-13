@@ -23,8 +23,8 @@ function Header() {
     return (
         <div className="Header">
             <div className="HeaderContents">
-                <span className="HeaderDate">{dateTime.date}</span>
-                <span className="HeaderTime">{dateTime.time} ({dateTime.day})</span>
+                <span className="HeaderDate">{dateTime.date} ({dateTime.day})</span>
+                <span className="HeaderTime">{dateTime.time}</span>
             </div>
         </div>
     );

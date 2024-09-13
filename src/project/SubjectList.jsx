@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./SubjectList.css";
 import SubjectItem from "./SubjectItem";
 
-function SubjectList({subject, onUpdate, onDelete}) {
+function SubjectList({subject, onUpdate, onDelete, onSelectSubject}) {
     const [search, setSearch] = useState("");
     function onChangeSearch(e) {
         setSearch(e.target.value);
@@ -29,6 +29,7 @@ function SubjectList({subject, onUpdate, onDelete}) {
                         {...item} 
                         onUpdate={onUpdate}
                         onDelete={onDelete}
+                        onSelectSubject={onSelectSubject}
                     ></SubjectItem>
                 ))}
             </div>
