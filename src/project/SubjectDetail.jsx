@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-function SubjectDetail({ subject, onClose }) {
+function SubjectDetail({ subject }) {
     const [time, setTime] = useState(0); //시간
     const [isActive, setIsActive] = useState(false); //작동중인가
 
@@ -37,11 +37,10 @@ function SubjectDetail({ subject, onClose }) {
         <p>수강 기간: 12주</p>
         <p>담당 교수: 홍길동</p>
         <p>학점: 3학점</p>
-        <button onClick={onClose}>닫기</button>
-        {time}
         <button onClick={handleStartStop}>
             {isActive ? 'Stop' : 'Start'}
         </button>
+        {time}
         <button onClick={handleReset}>Reset</button>
     </div>
     );

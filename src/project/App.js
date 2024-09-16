@@ -32,13 +32,13 @@ function App() {
     };
 
     function onSelectSubject(id) {
-        const selected = subject.find(item => item.id === id);
-        setSelectedSubject(selected);
+        if (selectedSubject && selectedSubject.id === id) {
+            setSelectedSubject(null);
+        } else {
+            const selected = subject.find(item => item.id === id);
+            setSelectedSubject(selected);
+        }
     };
-
-    function closeSubjectDetail() {
-        setSelectedSubject(null);
-    }
 
     return(
         <div className="App">
@@ -52,8 +52,7 @@ function App() {
             </SubjectList>
             {selectedSubject && (
                 <SubjectDetail 
-                    subject={selectedSubject}
-                    onClose={closeSubjectDetail}>
+                    subject={selectedSubject}>
                 </SubjectDetail>)}
         </div>
     )
