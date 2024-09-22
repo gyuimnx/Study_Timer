@@ -1,0 +1,22 @@
+.DetailItem {
+    display: flex;
+    justify-content: center;
+}
+
+.DetailItem p {
+    padding-right: 5%;
+}
+
+.DetailHeader {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5em;
+}
+
+.DetailHeader_2 button {
+    margin-right: 20px;
+}
+
+/* .resetButton {
+
+} */

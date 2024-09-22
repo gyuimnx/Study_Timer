@@ -28,7 +28,10 @@ function App() {
     };
 
     function onDelete(targetId) {
-        setSubject(subject.filter((item)=>item.id !== targetId))
+        setSubject(subject.filter((item)=>item.id !== targetId));
+        if (selectedSubject && selectedSubject.id === targetId) {
+            setSelectedSubject(null);
+        }
     };
 
     function onSelectSubject(id) {

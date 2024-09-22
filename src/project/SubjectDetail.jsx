@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
+import './SubjectDetail.css';
 
 function SubjectDetail({ subject }) {
     const [time, setTime] = useState(0); //시간
     const [isActive, setIsActive] = useState(false); //작동중인가
+    const [detailItems, setDetailItems] = useState([]);
 
     useEffect(()=>{
         let interval = null;
@@ -16,32 +18,74 @@ function SubjectDetail({ subject }) {
         }
 
         return () => clearInterval(interval);
-        }, [isActive, time])
+    }, [isActive, time]);
 
-    function handleStartStop() {
-        setIsActive(!isActive);
+    function clock(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const remainingSeconds = seconds % 60;
+        return [hours, minutes, remainingSeconds].map(v => v < 10 ? "0" + v : v).join(":");
     };
 
+    function handleStartStop() {
+        if (!isActive) {
+            const newItem = {
+                id: Date.now(),
+                startTime: new Date(),
+                stopTime: null,
+                duration: 0
+            };
+            setDetailItems([...detailItems, newItem]);
+        } else {
+            setDetailItems(items => items.map(item => {
+                if (!item.stopTime) {
+                    return {
+                        ...item,
+                        stopTime: new Date().toLocaleTimeString(),
+                        duration: Math.floor((new Date() - item.startTime) / 1000)
+                    };
+                }
+                return item;
+            }));
+        }
+        setIsActive(!isActive);
+        setTime(0);
+    };
+
+    //TOTAL 표시
+    const calculateTotalStudyTime = () => {
+        return detailItems.reduce((total, item) => total + item.duration, 0);
+    };
+    
+    //reset 버튼 함수
     function handleReset() {
         setIsActive(false);
         setTime(0);
+        setDetailItems([]);
     };
 
     if (!subject) return null;
 
     return (
     <div className="SubjectDetail">
-        <h2>{subject.content} 상세 정보</h2>
-        <p>생성일: {new Date(subject.createdDate).toLocaleString()}</p>
-        <p>상태: {subject.isDone ? '완료' : '진행 중'}</p>
-        <p>수강 기간: 12주</p>
-        <p>담당 교수: 홍길동</p>
-        <p>학점: 3학점</p>
-        <button onClick={handleStartStop}>
-            {isActive ? 'Stop' : 'Start'}
-        </button>
-        {time}
-        <button onClick={handleReset}>Reset</button>
+        <h2>{subject.content} 학습 기록</h2>
+        <div className='DetailHeader'>
+            <div className='DetailHeader_2'>
+                <button onClick={handleStartStop}>
+                    {isActive ? 'Stop' : 'Start'}
+                </button>
+                <span>{clock(time)}</span>
+            </div>
+            <span>TOTAL: {clock(calculateTotalStudyTime())}</span>
+            <button onClick={handleReset}>Reset</button>
+        </div>
+        {detailItems.map(item => (
+            <div key={item.id} className='DetailItem'>
+                <p>시작: {item.startTime.toLocaleString()}</p>
+                <p>종료: {item.stopTime ? item.stopTime.toLocaleString() : '진행 중'}</p>
+                <p>공부 시간: {clock(item.duration)}</p>
+            </div>
+        ))}
     </div>
     );
 }
