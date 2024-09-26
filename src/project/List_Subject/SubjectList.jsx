@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import "./SubjectList.css";
-import SubjectItem from "./SubjectItem";
+import SubjectItem from "../Item_Subject/SubjectItem";
 
 function SubjectList({subject, onUpdate, onDelete, onSelectSubject}) {
     const [search, setSearch] = useState("");
@@ -13,13 +13,13 @@ function SubjectList({subject, onUpdate, onDelete, onSelectSubject}) {
     };
     return (
         <div className="SubjectList">
-            <h2>과목 목록</h2>
+            <h2>과목 검색</h2>
             <div className="listWrapper">
                 <input 
                     className="searchbar" 
                     value={search} 
                     onChange={onChangeSearch} 
-                    placeholder="검색"
+                    placeholder="과목을 입력하세요"
                 />
             </div>
             <div>

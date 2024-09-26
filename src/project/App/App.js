@@ -1,9 +1,9 @@
 import React, {useState, useRef} from "react";
 import "./App.css";
-import Header from "./Header";
-import SubjectEditor from "./SubjectEditor";
-import SubjectList from "./SubjectList";
-import SubjectDetail from "./SubjectDetail";
+import Header from "../Header/Header";
+import SubjectEditor from "../Editor_Subject/SubjectEditor";
+import SubjectList from "../List_Subject/SubjectList";
+import SubjectDetail from "../Detail_Subject/SubjectDetail";
 
 function App() {
     const [subject, setSubject] = useState([]); 

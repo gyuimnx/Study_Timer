@@ -15,8 +15,10 @@ body {
     flex-direction: column;
     gap: 30px;
 
-    background-color: coral;
+    /* background: linear-gradient(10deg, #31ae6e, #282828); */
+    background-color: #31ae6e;
     color: white;
 
     /* align-items: center; */
 }
+

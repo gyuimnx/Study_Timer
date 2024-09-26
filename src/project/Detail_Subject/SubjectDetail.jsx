@@ -71,18 +71,21 @@ function SubjectDetail({ subject }) {
         <h2>{subject.content} 학습 기록</h2>
         <div className='DetailHeader'>
             <div className='DetailHeader_2'>
-                <button onClick={handleStartStop}>
+                <button onClick={handleStartStop} className='startStopButton'>
                     {isActive ? 'Stop' : 'Start'}
                 </button>
                 <span>{clock(time)}</span>
             </div>
-            <span>TOTAL: {clock(calculateTotalStudyTime())}</span>
-            <button onClick={handleReset}>Reset</button>
+            <div className='DetailHeader_3'>
+                <span>TOTAL: {clock(calculateTotalStudyTime())}</span>
+                <button onClick={handleReset} className='resetButton'>Reset</button>
+            </div>
         </div>
         {detailItems.map(item => (
             <div key={item.id} className='DetailItem'>
-                <p>시작: {item.startTime.toLocaleString()}</p>
-                <p>종료: {item.stopTime ? item.stopTime.toLocaleString() : '진행 중'}</p>
+                <p>{item.startTime.toLocaleString()}</p>
+                <p>~</p>
+                <p>{item.stopTime ? item.stopTime.toLocaleString() : '진행 중'}</p>
                 <p>공부 시간: {clock(item.duration)}</p>
             </div>
         ))}
